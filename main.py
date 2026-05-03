@@ -59,33 +59,7 @@ def ensure_clean_dir(path):
 # =========================
 # JAVA
 # =========================
-def find_java():
-    try:
-        subprocess.run(["java", "-version"], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        return "java"
-    except:
-        return None
-
-
-def download_java(tmp_dir):
-    print("Downloading Java...")
-    url = "https://api.adoptium.net/v3/binary/latest/17/ga/windows/x64/jre/hotspot/normal/eclipse"
-
-    path = os.path.join(tmp_dir, "java.zip")
-    urllib.request.urlretrieve(url, path)
-
-    extract_dir = os.path.join(tmp_dir, "java")
-    shutil.unpack_archive(path, extract_dir)
-
-    for root, _, files in os.walk(extract_dir):
-        if "java.exe" in files:
-            return os.path.join(root, "java.exe")
-
-    raise Exception("Java install failed")
-
-
-# =========================
-# FABRIC
+# Java is bundled with Minecraft Launcher
 # =========================
 def download_fabric_installer(tmp_dir):
     url = "https://meta.fabricmc.net/v2/versions/installer"
@@ -227,9 +201,7 @@ def main():
         print("Target MC:", mc_version, "| Fabric:", loader_version)
 
         # --- Java ---
-        java = find_java()
-        if not java:
-            java = download_java(tmp)
+        java = r"C:\Program Files (x86)\Minecraft Launcher\runtime\java-runtime-epsilon\windows-x64\java-runtime-epsilon\bin\java.exe"
 
         # --- Fabric (auto-updates if needed) ---
         installer = download_fabric_installer(tmp)

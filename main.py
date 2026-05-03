@@ -118,9 +118,16 @@ def sync_mods(manifest):
 
     for file in manifest["files"]:
         url = file["downloads"][0]
-        filename = os.path.basename(file["path"])
-        dest = os.path.join(MODS_DIR, filename)
-
+        path = file["path"]
+        
+        # Destination is profile path + file path (e.g., GAME_DIR/mods/filename.jar)
+        dest = os.path.join(GAME_DIR, path)
+        dest_dir = os.path.dirname(dest)
+        
+        # Ensure destination directory exists
+        os.makedirs(dest_dir, exist_ok=True)
+        
+        filename = os.path.basename(path)
         print("Downloading", filename)
         urllib.request.urlretrieve(url, dest)
 

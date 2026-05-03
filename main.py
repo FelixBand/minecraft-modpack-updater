@@ -74,7 +74,7 @@ def download_fabric_installer(tmp_dir):
 
 
 def install_fabric(java, installer, mc_version, loader_version):
-    print(f"Ensuring Fabric {loader_version} for MC {mc_version}")
+    print(f"Installing Fabric {loader_version} for MC {mc_version}")
 
     run([
         java,
@@ -210,7 +210,7 @@ def main():
         # --- Java ---
         java = r"C:\Program Files (x86)\Minecraft Launcher\runtime\java-runtime-epsilon\windows-x64\java-runtime-epsilon\bin\java.exe"
 
-        # --- Fabric (auto-updates if needed) ---
+        # --- Fabric (install every run) ---
         installer = download_fabric_installer(tmp)
         install_fabric(java, installer, mc_version, loader_version)
 
